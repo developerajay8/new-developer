@@ -123,7 +123,7 @@ export default function HomeSection() {
                 <div className="aspect-[3/4] lg:aspect-[4/5] relative rounded-xl overflow-hidden bg-gradient-to-br from-[#F5F1E8] to-[#E8DCC8]">
                   {/* Placeholder Image - Replace with actual image */}
                   <Image
-                    src="/hero-fashion-student.jpg"
+                    src=""
                     alt="Fashion Design Student"
                     fill
                     className="object-cover"
