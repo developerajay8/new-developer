@@ -1,255 +1,208 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Smartphone, Download, Play, CheckCircle, Star, TrendingUp, Bell } from 'lucide-react';
+import { Smartphone, CheckCircle, Download, Play, Apple } from 'lucide-react';
+import Image from 'next/image';
 
-export default function AppDownloadSection() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+export default function MobileAppSection() {
   const features = [
-    {
-      icon: Play,
-      title: 'Watch Recorded Lectures',
-      description: 'Access all recorded classes anytime, anywhere at your convenience',
-    },
-    {
-      icon: Download,
-      title: 'Download Study Materials',
-      description: 'Download notes, PDFs, and resources for offline learning',
-    },
-    {
-      icon: Bell,
-      title: 'Instant Notifications',
-      description: 'Get updates for live classes, assignments, and announcements',
-    },
-    {
-      icon: TrendingUp,
-      title: 'Track Your Progress',
-      description: 'Monitor your learning journey and track course completion',
-    },
+    'Learn from anywhere with 24/7 access on our mobile app.',
+    'Watch recorded lectures, practice with quizzes, and download study materials.',
+    'Get instant updates for live classes, assignments, and more.',
+    'Track your progress, revisit lessons, and never miss a session.',
   ];
 
   return (
-    <section className="relative py-20 lg:py-32 overflow-hidden">
-      {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-amber-600 via-yellow-500 to-amber-700"></div>
+    <section className="relative bg-gradient-to-br from-black via-gray-900 to-black py-16 md:py-20 lg:py-24 overflow-hidden">
+      {/* Decorative Background Elements */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-[#C9A961] opacity-5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#C9A961] opacity-5 rounded-full blur-3xl"></div>
       
-      {/* Pattern Overlay */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }}></div>
+      {/* Decorative Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 left-20 w-3 h-3 border-2 border-[#C9A961] rotate-45"></div>
+        <div className="absolute top-40 right-40 w-3 h-3 border-2 border-[#C9A961] rotate-45"></div>
+        <div className="absolute bottom-32 left-1/3 w-3 h-3 border-2 border-[#C9A961] rotate-45"></div>
+        <div className="absolute bottom-20 right-1/4 w-3 h-3 border-2 border-[#C9A961] rotate-45"></div>
       </div>
 
-      {/* Animated Shapes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float-delayed"></div>
-      </div>
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Content */}
-          <div className={`transition-all duration-1000 ${mounted ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full px-4 py-2 mb-6">
-              <Star className="w-4 h-4 text-white fill-white" />
-              <span className="text-sm font-semibold text-white">24/7 Learning Access</span>
+          
+          {/* Left Side - Content */}
+          <div className="space-y-6 lg:space-y-8 order-2 lg:order-1">
+            
+            {/* Heading */}
+            <div>
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A961] to-[#B8935A] text-white px-4 py-2 rounded-full mb-6">
+                <Smartphone className="w-4 h-4" />
+                <span className="text-sm font-medium">Mobile Learning</span>
+              </div>
+
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-serif font-bold text-white leading-tight mb-4">
+                Carry Your Dreams 
+                <span className="block text-[#C9A961] mt-2">
+                  with You...
+                </span>
+              </h2>
+              <div className="h-1 w-24 bg-gradient-to-r from-[#C9A961] to-[#B8935A] rounded-full"></div>
             </div>
-
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white mb-6 leading-tight">
-              Carry Your Dreams
-              <br />
-              <span className="text-yellow-200">with You...</span>
-            </h2>
-
-            <p className="text-lg text-white/90 mb-8 leading-relaxed">
-              Learn from anywhere with 24/7 access on our mobile app. Your fashion education companion in your pocket!
-            </p>
 
             {/* Features List */}
-            <div className="space-y-4 mb-8">
+            <ul className="space-y-4">
               {features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="flex items-start space-x-4 bg-white/10 backdrop-blur-sm rounded-2xl p-4 hover:bg-white/20 transition-all duration-300"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                      <feature.icon className="w-6 h-6 text-white" />
+                <li key={index} className="flex items-start gap-3 group">
+                  <div className="flex-shrink-0 mt-0.5">
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#C9A961] to-[#B8935A] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <CheckCircle className="w-4 h-4 text-white" />
                     </div>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-white mb-1">{feature.title}</h3>
-                    <p className="text-sm text-white/80">{feature.description}</p>
-                  </div>
-                </div>
+                  <p className="text-gray-300 text-base md:text-lg leading-relaxed">
+                    {feature}
+                  </p>
+                </li>
               ))}
-            </div>
+            </ul>
 
             {/* Download Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href="#"
-                className="group flex items-center justify-center space-x-3 px-6 py-4 bg-white rounded-2xl font-bold text-amber-700 hover:bg-yellow-50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
-              >
-                <div className="w-10 h-10 bg-gradient-to-br from-amber-600 to-yellow-700 rounded-xl flex items-center justify-center">
-                  <Play className="w-5 h-5 text-white" />
-                </div>
-                <div className="text-left">
-                  <p className="text-xs text-gray-600">GET IT ON</p>
-                  <p className="text-lg font-black">Google Play</p>
-                </div>
-              </a>
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <button className="group inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#C9A961] to-[#B8935A] hover:from-[#B8935A] hover:to-[#C9A961] text-white font-semibold px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                <Download className="w-5 h-5" />
+                <span className="text-base">Download App</span>
+              </button>
 
-              <a
-                href="#"
-                className="group flex items-center justify-center space-x-3 px-6 py-4 bg-white/20 backdrop-blur-sm border-2 border-white rounded-2xl font-bold text-white hover:bg-white hover:text-amber-700 transition-all duration-300"
-              >
-                <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-amber-600 group-hover:to-yellow-700 transition-all duration-300">
-                  <Download className="w-5 h-5" />
-                </div>
-                <div className="text-left">
-                  <p className="text-xs opacity-80">Download on the</p>
-                  <p className="text-lg font-black">App Store</p>
-                </div>
-              </a>
+              <div className="flex gap-3">
+                {/* Google Play */}
+                <a
+                  href="#"
+                  className="group flex items-center gap-2 bg-white hover:bg-gray-100 text-black px-5 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-[#C9A961]"
+                >
+                  <Play className="w-6 h-6 text-[#C9A961] fill-[#C9A961]" />
+                  <div className="text-left">
+                    <p className="text-[10px] text-gray-600 leading-none">GET IT ON</p>
+                    <p className="text-sm font-bold">Google Play</p>
+                  </div>
+                </a>
+
+                {/* App Store */}
+                <a
+                  href="#"
+                  className="group flex items-center gap-2 bg-white hover:bg-gray-100 text-black px-5 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-[#C9A961]"
+                >
+                  <Apple className="w-6 h-6 text-[#C9A961]" />
+                  <div className="text-left">
+                    <p className="text-[10px] text-gray-600 leading-none">Download on</p>
+                    <p className="text-sm font-bold">App Store</p>
+                  </div>
+                </a>
+              </div>
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-white/20">
-              <div className="text-center">
-                <p className="text-3xl font-black text-white mb-1">50K+</p>
-                <p className="text-sm text-white/80">Downloads</p>
+            <div className="flex flex-wrap gap-8 pt-6 border-t border-[#C9A961]/30">
+              <div>
+                <p className="text-3xl font-bold text-[#C9A961]">3,47,969+</p>
+                <p className="text-sm text-gray-400 mt-1">App Downloads</p>
               </div>
-              <div className="text-center">
-                <p className="text-3xl font-black text-white mb-1">4.8⭐</p>
-                <p className="text-sm text-white/80">Rating</p>
+              <div>
+                <p className="text-3xl font-bold text-[#C9A961]">4.8/5</p>
+                <p className="text-sm text-gray-400 mt-1">User Rating</p>
               </div>
-              <div className="text-center">
-                <p className="text-3xl font-black text-white mb-1">24/7</p>
-                <p className="text-sm text-white/80">Access</p>
+              <div>
+                <p className="text-3xl font-bold text-[#C9A961]">24/7</p>
+                <p className="text-sm text-gray-400 mt-1">Access</p>
               </div>
             </div>
           </div>
 
-          {/* Right Content - Phone Mockup */}
-          <div className={`relative transition-all duration-1000 delay-300 ${mounted ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <div className="relative max-w-md mx-auto">
+          {/* Right Side - Mobile App Mockup */}
+          <div className="order-1 lg:order-2 relative">
+            <div className="relative mx-auto max-w-md lg:max-w-lg">
+              
+              {/* Decorative Glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#C9A961] to-[#B8935A] opacity-20 blur-3xl rounded-3xl"></div>
+              
+              {/* Phone Frame */}
+              <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-[3rem] p-3 shadow-2xl border-4 border-[#C9A961]">
+                {/* Screen */}
+                <div className="relative bg-white rounded-[2.5rem] overflow-hidden aspect-[12/19]">
+                  
+                  {/* App Screenshot Mockup */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#F5F1E8] to-white p-4">
+                    
+                    {/* App Header */}
+                    <div className="bg-gradient-to-r from-teal-700 to-teal-600 rounded-t-2xl p-4 mb-3">
+                      <h3 className="text-white font-bold text-lg">Welcome to Nasreen Fatima</h3>
+                      <p className="text-white/80 text-xs">Fashion Academy</p>
+                    </div>
+
+                    {/* Categories */}
+                    <div className="mb-3">
+                      <p className="text-xs font-semibold text-gray-600 mb-2">Categories</p>
+                      <div className="grid grid-cols-4 gap-2">
+                        {['Fashion', 'Design', 'Textile', 'Style'].map((cat, idx) => (
+                          <div key={idx} className="bg-teal-700 rounded-lg p-2 text-center">
+                            <div className="w-8 h-8 bg-teal-600 rounded-lg mx-auto mb-1"></div>
+                            <p className="text-white text-[8px] font-medium">{cat}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Courses */}
+                    <div>
+                      <div className="flex justify-between items-center mb-2">
+                        <p className="text-xs font-semibold text-gray-600">Courses</p>
+                        <p className="text-[8px] text-gray-500">View All →</p>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2">
+                        {[1, 2, 3].map((course) => (
+                          <div key={course} className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                            <div className="aspect-video bg-gradient-to-br from-teal-600 to-teal-500"></div>
+                            <div className="p-1.5">
+                              <p className="text-[7px] font-semibold text-gray-800 line-clamp-1">Fashion Course</p>
+                              <p className="text-[6px] text-gray-500">10 Lessons</p>
+                              <div className="flex items-center justify-between mt-1">
+                                <span className="text-[7px] font-bold text-[#C9A961]">₹4,999</span>
+                                <span className="text-[6px] bg-orange-500 text-white px-1 rounded">Enroll</span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Premium Badge */}
+                    <div className="mt-3 bg-gradient-to-r from-[#C9A961] to-[#B8935A] rounded-lg p-2">
+                      <p className="text-white text-[8px] font-bold">⭐ Premium Courses Available</p>
+                    </div>
+                  </div>
+
+                  {/* Notch */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-gray-900 rounded-b-3xl"></div>
+                </div>
+
+                {/* Side Buttons */}
+                <div className="absolute right-0 top-20 w-1 h-8 bg-gray-700 rounded-l"></div>
+                <div className="absolute right-0 top-32 w-1 h-12 bg-gray-700 rounded-l"></div>
+                <div className="absolute right-0 top-48 w-1 h-12 bg-gray-700 rounded-l"></div>
+              </div>
+
               {/* Floating Elements */}
-              <div className="absolute -top-8 -left-8 bg-white rounded-2xl p-4 shadow-2xl animate-float">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
-                    <CheckCircle className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-600">Course Progress</p>
-                    <p className="text-lg font-bold text-gray-900">85% Complete</p>
-                  </div>
-                </div>
+              <div className="absolute -top-4 -right-4 bg-gradient-to-br from-[#C9A961] to-[#B8935A] rounded-full p-4 shadow-xl animate-bounce">
+                <Download className="w-6 h-6 text-white" />
               </div>
-
-              <div className="absolute -bottom-8 -right-8 bg-white rounded-2xl p-4 shadow-2xl animate-float-delayed">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-yellow-600 rounded-xl flex items-center justify-center">
-                    <Star className="w-6 h-6 text-white fill-white" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-600">New Achievement</p>
-                    <p className="text-lg font-bold text-gray-900">🏆 Unlocked!</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Phone Mockup */}
-              <div className="relative">
-                {/* Glow Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-[3rem] blur-2xl opacity-50"></div>
-                
-                {/* Phone */}
-                <div className="relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-[3rem] p-3 shadow-2xl">
-                  {/* Screen */}
-                  <div className="bg-gradient-to-br from-white to-amber-50 rounded-[2.5rem] aspect-[9/19] overflow-hidden">
-                    {/* Status Bar */}
-                    <div className="bg-gradient-to-r from-amber-600 to-yellow-600 px-6 py-3 flex items-center justify-between text-white text-xs">
-                      <span>9:41</span>
-                      <span>📶 📡 🔋</span>
-                    </div>
-
-                    {/* App Content */}
-                    <div className="p-6 space-y-4">
-                      {/* Header */}
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="text-xl font-bold text-gray-900">My Courses</h3>
-                          <p className="text-sm text-gray-600">Continue Learning</p>
-                        </div>
-                        <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-yellow-600 rounded-full"></div>
-                      </div>
-
-                      {/* Course Card */}
-                      <div className="bg-gradient-to-br from-amber-100 to-yellow-100 rounded-2xl p-4">
-                        <div className="flex items-center space-x-3 mb-3">
-                          <div className="text-3xl">🎨</div>
-                          <div className="flex-1">
-                            <h4 className="font-bold text-gray-900">Fashion Design</h4>
-                            <p className="text-xs text-gray-600">Module 5 of 10</p>
-                          </div>
-                        </div>
-                        <div className="w-full bg-white/50 rounded-full h-2">
-                          <div className="bg-gradient-to-r from-amber-500 to-yellow-600 h-2 rounded-full" style={{ width: '50%' }}></div>
-                        </div>
-                      </div>
-
-                      {/* Features */}
-                      <div className="grid grid-cols-2 gap-3">
-                        {['📹 Live Class', '📝 Notes', '💬 Community', '🏆 Achievements'].map((item, i) => (
-                          <div key={i} className="bg-white rounded-xl p-3 text-center shadow-sm">
-                            <p className="text-sm font-semibold text-gray-700">{item}</p>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Bottom Navigation */}
-                      <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-3 flex justify-around">
-                        {['🏠', '📚', '🔔', '👤'].map((icon, i) => (
-                          <button key={i} className="text-2xl opacity-50 hover:opacity-100 transition-opacity">
-                            {icon}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              
+              <div className="absolute -bottom-4 -left-4 bg-white rounded-full p-4 shadow-xl border-2 border-[#C9A961]">
+                <Smartphone className="w-6 h-6 text-[#C9A961]" />
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-
-        @keyframes float-delayed {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-30px); }
-        }
-
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-        }
-
-        .animate-float-delayed {
-          animation: float-delayed 8s ease-in-out infinite;
-        }
-      `}</style>
+      {/* Bottom Decoration */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A961] to-transparent"></div>
     </section>
   );
 }

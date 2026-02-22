@@ -1,298 +1,183 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Users, Award, BookOpen, Sparkles, Star, TrendingUp } from 'lucide-react';
+import { Play, Star, Users, Award, TrendingUp } from 'lucide-react';
 
 export default function HomeSection() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const stats = [
-    { icon: Users, number: '5000+', label: 'Happy Students' },
-    { icon: Award, number: '500+', label: 'Certified Designers' },
-    { icon: BookOpen, number: '50+', label: 'Expert Courses' },
-    { icon: TrendingUp, number: '95%', label: 'Success Rate' },
-  ];
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-amber-50 via-white to-yellow-50">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Gradient Orbs */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-amber-300/30 to-yellow-300/30 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-yellow-300/30 to-amber-400/30 rounded-full blur-3xl animate-float-delayed"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-amber-200/20 to-yellow-200/20 rounded-full blur-3xl animate-pulse-slow"></div>
+    <section className="relative bg-gradient-to-br from-[#F5F1E8] via-[#FAF7F0] to-[#F5F1E8] overflow-hidden">
+      {/* Decorative Background Elements */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#C9A961] opacity-5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#C9A961] opacity-5 rounded-full blur-3xl"></div>
+      
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 lg:py-28">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          
+          {/* Left Side - Content */}
+          <div className="space-y-5 lg:space-y-6 order-2 lg:order-1">
+            
+            {/* Top Badge */}
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A961] to-[#B8935A] text-white px-4 py-2 rounded-full shadow-lg">
+              <Award className="w-3.5 h-3.5" />
+              <span className="text-[13px] font-medium">India's Premier Fashion Academy</span>
+            </div>
 
-        {/* Floating Fashion Icons */}
-        <div className="absolute top-32 left-20 animate-float">
-          <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-lg opacity-20 rotate-12"></div>
-        </div>
-        <div className="absolute bottom-40 right-32 animate-float-delayed">
-          <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full opacity-20"></div>
-        </div>
-        <div className="absolute top-1/3 right-20 animate-float">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-300 to-yellow-400 rounded-lg opacity-20 -rotate-12"></div>
-        </div>
-
-        {/* Sparkle Stars */}
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute animate-twinkle"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-            }}
-          >
-            <Star className="w-3 h-3 text-amber-400/40 fill-amber-400/40" />
-          </div>
-        ))}
-
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Y1OWUwYiIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-40"></div>
-      </div>
-
-      {/* Main Content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20 lg:py-32">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left Content */}
-            <div className={`space-y-8 transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              {/* Badge */}
-              <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-amber-100 to-yellow-100 border border-amber-200 rounded-full px-4 py-2 shadow-md">
-                <Sparkles className="w-4 h-4 text-amber-600" />
-                <span className="text-sm font-semibold bg-gradient-to-r from-amber-700 to-yellow-700 bg-clip-text text-transparent">
-                  India's Premier Fashion Institute
+            {/* Main Heading */}
+            <div>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] xl:text-[58px] font-serif font-bold text-black leading-[1.1]">
+                Transform Your
+                <span className="block text-[#C9A961] mt-1">
+                  Fashion Dreams
                 </span>
-              </div>
+                <span className="block mt-1">
+                  Into Reality
+                </span>
+              </h1>
+              <div className="h-1 w-20 bg-gradient-to-r from-[#C9A961] to-[#B8935A] mt-5 rounded-full"></div>
+            </div>
 
-              {/* Main Heading */}
-              <div className="space-y-4">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-serif font-bold leading-tight">
-                  <span className="bg-gradient-to-r from-amber-700 via-yellow-600 to-amber-700 bg-clip-text text-transparent animate-gradient">
-                    Transform Your
-                  </span>
-                  <br />
-                  <span className="bg-gradient-to-r from-yellow-600 via-amber-600 to-yellow-700 bg-clip-text text-transparent animate-gradient">
-                    Passion Into
-                  </span>
-                  <br />
-                  <span className="bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 bg-clip-text text-transparent animate-gradient inline-flex items-center">
-                    Profession
-                    <Sparkles className="w-8 h-8 lg:w-12 lg:h-12 ml-3 text-amber-500 animate-pulse" />
-                  </span>
-                </h1>
+            {/* Description */}
+            <p className="text-base md:text-[17px] lg:text-[18px] text-gray-700 leading-relaxed">
+              Join <span className="font-bold text-[#C9A961]">1,50,000+ Students</span> who are mastering the art of fashion designing with expert-led courses, live workshops, and industry-recognized certifications.
+            </p>
 
-                <p className="text-lg sm:text-xl lg:text-2xl text-gray-700 leading-relaxed max-w-2xl">
-                  Learn from <span className="font-bold text-amber-700">expert designers</span> and master the art of 
-                  <span className="font-bold text-yellow-700"> fashion designing</span>, pattern making, and more at India's most trusted fashion academy.
-                </p>
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/courses"
-                  className="group relative px-8 py-4 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-white rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden"
-                >
-                  <span className="relative z-10 flex items-center justify-center space-x-2">
-                    <span>Start Your Journey</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </Link>
-
-                <Link
-                  href="/contact-us"
-                  className="px-8 py-4 border-2 border-amber-600 text-amber-700 rounded-full font-bold text-lg hover:bg-gradient-to-r hover:from-amber-50 hover:to-yellow-50 transition-all duration-300 text-center"
-                >
-                  Talk to Expert
-                </Link>
-              </div>
-
-              {/* Trust Badges */}
-              <div className="flex flex-wrap items-center gap-6 pt-4">
-                <div className="flex items-center space-x-2">
-                  <div className="flex -space-x-2">
-                    {[1, 2, 3, 4].map((i) => (
-                      <div
-                        key={i}
-                        className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-yellow-500 border-2 border-white flex items-center justify-center text-white font-bold text-sm"
-                      >
-                        {i}
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-sm">
-                    <p className="font-bold text-gray-900">5000+ Students</p>
-                    <p className="text-gray-600">Learning with us</p>
-                  </div>
+            {/* Stats */}
+            <div className="grid grid-cols-3 hidden gap-4 py-5 border-t-2 border-b-2 border-[#C9A961]/20">
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-1">
+                  <Users className="w-4 h-4 text-[#C9A961]" />
                 </div>
-
-                <div className="flex items-center space-x-2">
-                  <div className="flex space-x-1">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <Star key={i} className="w-5 h-5 fill-amber-500 text-amber-500" />
-                    ))}
-                  </div>
-                  <span className="text-sm font-semibold text-gray-700">4.9/5 Rating</span>
+                <h3 className="text-xl md:text-2xl lg:text-[28px] font-bold text-[#C9A961]">1.5L+</h3>
+                <p className="text-xs md:text-sm text-gray-600 mt-0.5">Students</p>
+              </div>
+              <div className="text-center border-l-2 border-r-2 border-[#C9A961]/20">
+                <div className="flex items-center justify-center mb-1">
+                  <Star className="w-4 h-4 text-[#C9A961]" />
                 </div>
+                <h3 className="text-xl md:text-2xl lg:text-[28px] font-bold text-[#C9A961]">4.9/5</h3>
+                <p className="text-xs md:text-sm text-gray-600 mt-0.5">Rating</p>
+              </div>
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-1">
+                  <TrendingUp className="w-4 h-4 text-[#C9A961]" />
+                </div>
+                <h3 className="text-xl md:text-2xl lg:text-[28px] font-bold text-[#C9A961]">50+</h3>
+                <p className="text-xs md:text-sm text-gray-600 mt-0.5">Courses</p>
               </div>
             </div>
 
-            {/* Right Content - Image/Illustration Area */}
-            <div className={`relative transition-all duration-1000 delay-300 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <div className="relative">
-                {/* Main Image Container */}
-                <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-all duration-500">
-                  <div className="aspect-[4/5] bg-gradient-to-br from-amber-200 via-yellow-100 to-amber-300 relative overflow-hidden">
-                    {/* Placeholder for image - replace with actual image */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center space-y-4 p-8">
-                        <div className="w-32 h-32 mx-auto bg-gradient-to-br from-amber-500 to-yellow-600 rounded-full flex items-center justify-center shadow-xl">
-                          <Sparkles className="w-16 h-16 text-white" />
-                        </div>
-                        <p className="text-2xl font-serif font-bold text-amber-800">
-                          Your Success
-                          <br />
-                          Story Starts Here
-                        </p>
-                      </div>
-                    </div>
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+              <Link
+                href="/courses"
+                className="group relative inline-flex items-center justify-center px-7 py-3.5 bg-gradient-to-r from-[#C9A961] to-[#B8935A] text-white font-semibold text-[15px] rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  Browse Courses
+                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </span>
+                <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity"></div>
+              </Link>
 
-                    {/* Floating Elements */}
-                    <div className="absolute top-4 right-4 bg-white rounded-2xl p-4 shadow-xl animate-float">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-yellow-600 rounded-full flex items-center justify-center">
-                          <Award className="w-6 h-6 text-white" />
-                        </div>
-                        <div>
-                          <p className="text-xs text-gray-600">Certified</p>
-                          <p className="text-lg font-bold text-amber-700">Courses</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="absolute bottom-4 left-4 bg-white rounded-2xl p-4 shadow-xl animate-float-delayed">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-full flex items-center justify-center">
-                          <Users className="w-6 h-6 text-white" />
-                        </div>
-                        <div>
-                          <p className="text-xs text-gray-600">Join</p>
-                          <p className="text-lg font-bold text-amber-700">5000+</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              <button className="group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-white border-2 border-[#C9A961] text-[#C9A961] font-semibold text-[15px] rounded-lg hover:bg-[#C9A961] hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl">
+                <div className="w-9 h-9 rounded-full bg-[#C9A961] group-hover:bg-white flex items-center justify-center transition-colors">
+                  <Play className="w-4 h-4 text-white group-hover:text-[#C9A961] fill-current" />
                 </div>
+                Watch Demo
+              </button>
+            </div>
 
-                {/* Decorative Elements */}
-                <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-3xl opacity-20 animate-spin-slow"></div>
-                <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full opacity-20 animate-pulse-slow"></div>
+            {/* Trust Badges */}
+            <div className="flex flex-wrap items-center gap-5 pt-4">
+              <div className="flex items-center gap-2">
+                <div className="flex -space-x-2">
+                  <div className="w-7 h-7 rounded-full bg-[#C9A961] border-2 border-white"></div>
+                  <div className="w-7 h-7 rounded-full bg-[#B8935A] border-2 border-white"></div>
+                  <div className="w-7 h-7 rounded-full bg-[#C9A961] border-2 border-white"></div>
+                  <div className="w-7 h-7 rounded-full bg-[#B8935A] border-2 border-white"></div>
+                </div>
+                <div className="text-[13px] text-gray-600">
+                  <span className="font-bold text-black">10,000+</span> joined this week
+                </div>
+              </div>
+              <div className="flex items-center gap-1">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star key={star} className="w-3.5 h-3.5 fill-[#C9A961] text-[#C9A961]" />
+                ))}
+                <span className="text-[13px] text-gray-600 ml-1.5">Trusted by Students</span>
               </div>
             </div>
           </div>
 
-          {/* Stats Section */}
-          {/* <div className={`mt-20 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 transition-all duration-1000 delay-500 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            {stats.map((stat, index) => (
-              <div
-                key={index}
-                className="group relative bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-amber-100"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-yellow-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="relative">
-                  <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-yellow-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <stat.icon className="w-6 h-6 text-white" />
+          {/* Right Side - Image */}
+          <div className="order-1 lg:order-2 relative">
+            <div className="relative">
+              {/* Decorative Frame */}
+              <div className="absolute -inset-3 bg-gradient-to-br from-[#C9A961] to-[#B8935A] rounded-2xl opacity-20 blur-xl"></div>
+              
+              {/* Main Image Container */}
+              <div className="relative bg-white p-2.5 rounded-2xl shadow-2xl border-[3px] border-[#C9A961]">
+                <div className="aspect-[3/4] lg:aspect-[4/5] relative rounded-xl overflow-hidden bg-gradient-to-br from-[#F5F1E8] to-[#E8DCC8]">
+                  {/* Placeholder Image - Replace with actual image */}
+                  <Image
+                    src="/hero-fashion-student.jpg"
+                    alt="Fashion Design Student"
+                    fill
+                    className="object-cover"
+                    priority
+                    onError={(e) => {
+                      // Fallback if image doesn't exist
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                  
+                  {/* Fallback Design if image not found */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center p-6">
+                      <div className="w-28 h-28 mx-auto mb-3 rounded-full bg-gradient-to-br from-[#C9A961] to-[#B8935A] flex items-center justify-center">
+                        <Award className="w-14 h-14 text-white" />
+                      </div>
+                      <h3 className="text-xl font-serif font-bold text-[#C9A961] mb-1.5">
+                        Fashion Excellence
+                      </h3>
+                      <p className="text-sm text-gray-600">
+                        Premium Education
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-amber-700 to-yellow-700 bg-clip-text text-transparent mb-2">
-                    {stat.number}
-                  </p>
-                  <p className="text-gray-600 font-medium">{stat.label}</p>
+                </div>
+                
+                {/* Floating Badge - Student Count */}
+                <div className="absolute -top-3 -right-3 bg-white rounded-full shadow-xl border-[3px] border-[#C9A961] p-3 z-10">
+                  <div className="text-center">
+                    <p className="text-xl font-bold text-[#C9A961]">1.5L+</p>
+                    <p className="text-[10px] text-gray-600">Students</p>
+                  </div>
+                </div>
+                
+                {/* Floating Badge - Courses */}
+                <div className="absolute -bottom-3 -left-3 bg-gradient-to-br from-[#C9A961] to-[#B8935A] rounded-xl shadow-xl p-3 z-10">
+                  <div className="text-white">
+                    <p className="text-sm font-semibold">50+ Courses</p>
+                    <p className="text-[11px] opacity-90">Expert-Led Training</p>
+                  </div>
                 </div>
               </div>
-            ))}
-          </div> */}
+
+              {/* Decorative Corner Elements */}
+              <div className="absolute -top-5 -left-5 w-20 h-20 border-t-[3px] border-l-[3px] border-[#C9A961] opacity-30 rounded-tl-3xl"></div>
+              <div className="absolute -bottom-5 -right-5 w-20 h-20 border-b-[3px] border-r-[3px] border-[#C9A961] opacity-30 rounded-br-3xl"></div>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      {/* Bottom Wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-          <path
-            d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
-            fill="white"
-            fillOpacity="0.5"
-          />
-          <path
-            d="M0 120L60 112.5C120 105 240 90 360 82.5C480 75 600 75 720 78.75C840 82.5 960 90 1080 93.75C1200 97.5 1320 97.5 1380 97.5L1440 97.5V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
-            fill="white"
-          />
-        </svg>
-      </div>
-
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-
-        @keyframes float-delayed {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-30px); }
-        }
-
-        @keyframes pulse-slow {
-          0%, 100% { opacity: 0.3; transform: scale(1); }
-          50% { opacity: 0.5; transform: scale(1.05); }
-        }
-
-        @keyframes twinkle {
-          0%, 100% { opacity: 0.2; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        @keyframes spin-slow {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-
-        @keyframes gradient {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-        }
-
-        .animate-float-delayed {
-          animation: float-delayed 8s ease-in-out infinite;
-        }
-
-        .animate-pulse-slow {
-          animation: pulse-slow 4s ease-in-out infinite;
-        }
-
-        .animate-twinkle {
-          animation: twinkle 3s ease-in-out infinite;
-        }
-
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
-        }
-
-        .animate-gradient {
-          background-size: 200% 200%;
-          animation: gradient 8s ease infinite;
-        }
-      `}</style>
+      {/* Bottom Wave Decoration */}
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent"></div>
     </section>
   );
 }

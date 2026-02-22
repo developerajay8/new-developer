@@ -1,390 +1,450 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { Clock, Users, Star, BookOpen, Award, ArrowRight, Video, FileText } from 'lucide-react';
+import { BookOpen, Video, Users, Award, Clock, CheckCircle, Star, Download, MessageCircle } from 'lucide-react';
+import Image from 'next/image';
 
-export default function CoursesSection() {
-  const [mounted, setMounted] = useState(false);
-  const [activeCategory, setActiveCategory] = useState('all');
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const categories = [
-    { id: 'all', name: 'All Courses' },
-    { id: 'beginner', name: 'Beginner' },
-    { id: 'advanced', name: 'Advanced' },
-    { id: 'professional', name: 'Professional' },
+// Component 1: Services Hero Section
+export function ServicesHero() {
+  const features = [
+    { icon: BookOpen, text: '50+ Expert Courses' },
+    { icon: Video, text: 'Live & Recorded Sessions' },
+    { icon: Users, text: '1.5L+ Happy Students' },
+    { icon: Award, text: 'Industry Certificates' },
   ];
 
-  const courses = [
+  return (
+    <section className="relative bg-gradient-to-br from-[#F5F1E8] via-white to-[#F5F1E8] py-20 md:py-28 lg:py-32 overflow-hidden">
+      {/* Decorative Elements */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#C9A961] opacity-5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#C9A961] opacity-5 rounded-full blur-3xl"></div>
+      
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-20 left-10 w-2 h-2 border border-[#C9A961] rotate-45"></div>
+        <div className="absolute top-40 right-20 w-2 h-2 border border-[#C9A961] rotate-45"></div>
+        <div className="absolute bottom-20 left-1/4 w-2 h-2 border border-[#C9A961] rotate-45"></div>
+        <div className="absolute bottom-40 right-1/3 w-2 h-2 border border-[#C9A961] rotate-45"></div>
+      </div>
+
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A961] to-[#B8935A] text-white px-5 py-2 rounded-full mb-6">
+            <BookOpen className="w-4 h-4" />
+            <span className="text-sm font-medium">Our Services</span>
+          </div>
+          
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-serif font-bold text-black leading-tight mb-6">
+            Premium Fashion
+            <span className="block text-[#C9A961] mt-2">Education Services</span>
+          </h1>
+          
+          <div className="h-1 w-32 bg-gradient-to-r from-transparent via-[#C9A961] to-transparent mx-auto mb-8"></div>
+          
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-10">
+            Comprehensive fashion design courses taught by industry experts. From beginner to advanced levels, we have everything you need to succeed in the fashion industry.
+          </p>
+
+          {/* Feature Pills */}
+          <div className="flex flex-wrap justify-center gap-4 mb-10">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <div
+                  key={index}
+                  className="flex items-center gap-2 bg-white border-2 border-[#C9A961] px-5 py-3 hover:bg-[#C9A961] hover:text-white transition-all duration-300 group"
+                >
+                  <Icon className="w-5 h-5 text-[#C9A961] group-hover:text-white" />
+                  <span className="font-medium text-sm">{feature.text}</span>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="#services"
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#C9A961] to-[#B8935A] hover:from-[#B8935A] hover:to-[#C9A961] text-white font-semibold px-8 py-4 shadow-xl hover:shadow-2xl transition-all duration-300"
+            >
+              View All Services
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
+            <a
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-[#C9A961] font-semibold px-8 py-4 border-2 border-[#C9A961] shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <MessageCircle className="w-5 h-5" />
+              Contact Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Component 2: Services Grid
+export function ServicesGrid() {
+  const services = [
     {
       id: 1,
-      title: 'Fashion Designing Masterclass',
-      category: 'professional',
-      image: '🎨',
-      duration: '6 Months',
-      students: 2500,
-      rating: 4.9,
-      reviews: 450,
-      price: '₹25,000',
-      originalPrice: '₹35,000',
-      level: 'Professional',
-      lessons: 120,
-      certificate: true,
-      description: 'Complete fashion designing course from basics to advanced techniques',
-      features: ['Live Classes', 'Lifetime Access', 'Certificate', 'Projects'],
+      title: 'Fashion Design Courses',
+      description: 'Complete fashion designing programs from basics to advanced. Learn sketching, pattern making, garment construction, and more.',
+      image: '/services/fashion-design.jpg',
+      icon: BookOpen,
+      features: [
+        'Beginner to Advanced Levels',
+        'Hands-on Projects',
+        'Industry-Standard Tools',
+        'Portfolio Development',
+      ],
+      duration: '12-16 Weeks',
+      price: 'From ₹4,999',
+      badge: 'Most Popular',
     },
     {
       id: 2,
       title: 'Pattern Making & Draping',
-      category: 'advanced',
-      image: '📐',
-      duration: '4 Months',
-      students: 1800,
-      rating: 4.8,
-      reviews: 320,
-      price: '₹18,000',
-      originalPrice: '₹25,000',
-      level: 'Advanced',
-      lessons: 85,
-      certificate: true,
-      description: 'Master the art of pattern making and draping techniques',
-      features: ['Hands-on Practice', 'Expert Guidance', 'Certificate', 'Portfolio'],
+      description: 'Master the art of pattern making and draping techniques. Learn to create patterns for different garment types and body shapes.',
+      image: '/services/pattern-making.jpg',
+      icon: Award,
+      features: [
+        'Professional Patterns',
+        'Draping Techniques',
+        'Size Grading',
+        'Technical Drawings',
+      ],
+      duration: '10-12 Weeks',
+      price: 'From ₹7,499',
+      badge: 'Advanced',
     },
     {
       id: 3,
-      title: 'Tailoring & Stitching Basics',
-      category: 'beginner',
-      image: '✂️',
-      duration: '3 Months',
-      students: 3200,
-      rating: 4.9,
-      reviews: 580,
-      price: '₹12,000',
-      originalPrice: '₹18,000',
-      level: 'Beginner',
-      lessons: 60,
-      certificate: true,
-      description: 'Learn professional tailoring and stitching from scratch',
-      features: ['Beginner Friendly', 'Practical Sessions', 'Certificate', 'Materials'],
+      title: 'Fashion Illustration',
+      description: 'Develop your sketching and illustration skills. Learn to create stunning fashion illustrations using both traditional and digital methods.',
+      image: '/services/illustration.jpg',
+      icon: Star,
+      features: [
+        'Hand Sketching',
+        'Digital Illustration',
+        'Figure Drawing',
+        'Design Presentation',
+      ],
+      duration: '8-10 Weeks',
+      price: 'From ₹5,999',
+      badge: 'Creative',
     },
     {
       id: 4,
-      title: 'Fashion Illustration & Design',
-      category: 'beginner',
-      image: '✏️',
-      duration: '2 Months',
-      students: 1500,
-      rating: 4.7,
-      reviews: 280,
-      price: '₹10,000',
-      originalPrice: '₹15,000',
-      level: 'Beginner',
-      lessons: 45,
-      certificate: true,
-      description: 'Create stunning fashion illustrations and design concepts',
-      features: ['Creative Skills', 'Digital Tools', 'Certificate', 'Portfolio'],
+      title: 'Textile & Fabric Studies',
+      description: 'Comprehensive knowledge of textiles, fabrics, and materials. Understand fabric properties, selection, and sustainability.',
+      image: '/services/textile.jpg',
+      icon: CheckCircle,
+      features: [
+        'Fabric Properties',
+        'Textile Technology',
+        'Sustainable Materials',
+        'Quality Analysis',
+      ],
+      duration: '6-8 Weeks',
+      price: 'From ₹4,499',
+      badge: 'Essential',
     },
     {
       id: 5,
-      title: 'Embroidery & Embellishment',
-      category: 'advanced',
-      image: '🧵',
-      duration: '3 Months',
-      students: 1200,
-      rating: 4.8,
-      reviews: 210,
-      price: '₹15,000',
-      originalPrice: '₹22,000',
-      level: 'Advanced',
-      lessons: 70,
-      certificate: true,
-      description: 'Master various embroidery techniques and embellishments',
-      features: ['Multiple Techniques', 'Live Projects', 'Certificate', 'Materials'],
+      title: 'Fashion Styling & Trends',
+      description: 'Learn personal styling, wardrobe management, and trend forecasting. Become a professional fashion stylist.',
+      image: '/services/styling.jpg',
+      icon: Users,
+      features: [
+        'Personal Styling',
+        'Trend Analysis',
+        'Color Theory',
+        'Client Management',
+      ],
+      duration: '8 Weeks',
+      price: 'From ₹6,499',
+      badge: 'Trending',
     },
     {
       id: 6,
-      title: 'Boutique Management',
-      category: 'professional',
-      image: '💼',
-      duration: '2 Months',
-      students: 950,
-      rating: 4.9,
-      reviews: 175,
-      price: '₹20,000',
-      originalPrice: '₹28,000',
-      level: 'Professional',
-      lessons: 50,
-      certificate: true,
-      description: 'Learn to start and manage your own fashion boutique',
-      features: ['Business Skills', 'Marketing', 'Certificate', 'Mentorship'],
+      title: 'Fashion Business & Marketing',
+      description: 'Learn to start and grow your fashion business. Marketing strategies, branding, and entrepreneurship for fashion designers.',
+      image: '/services/business.jpg',
+      icon: Award,
+      features: [
+        'Business Planning',
+        'Brand Development',
+        'Social Media Marketing',
+        'E-commerce Setup',
+      ],
+      duration: '10 Weeks',
+      price: 'From ₹8,999',
+      badge: 'Professional',
     },
-    {
-      id: 7,
-      title: 'Tailoring & Stitching Basics',
-      category: 'beginner',
-      image: '✂️',
-      duration: '3 Months',
-      students: 3200,
-      rating: 4.9,
-      reviews: 580,
-      price: '₹12,000',
-      originalPrice: '₹18,000',
-      level: 'Beginner',
-      lessons: 60,
-      certificate: true,
-      description: 'Learn professional tailoring and stitching from scratch',
-      features: ['Beginner Friendly', 'Practical Sessions', 'Certificate', 'Materials'],
-    },
-    {
-      id: 8,
-      title: 'Fashion Illustration & Design',
-      category: 'beginner',
-      image: '✏️',
-      duration: '2 Months',
-      students: 1500,
-      rating: 4.7,
-      reviews: 280,
-      price: '₹10,000',
-      originalPrice: '₹15,000',
-      level: 'Beginner',
-      lessons: 45,
-      certificate: true,
-      description: 'Create stunning fashion illustrations and design concepts',
-      features: ['Creative Skills', 'Digital Tools', 'Certificate', 'Portfolio'],
-    },
-    {
-      id: 9,
-      title: 'Fashion Designing Masterclass',
-      category: 'professional',
-      image: '🎨',
-      duration: '6 Months',
-      students: 2500,
-      rating: 4.9,
-      reviews: 450,
-      price: '₹25,000',
-      originalPrice: '₹35,000',
-      level: 'Professional',
-      lessons: 120,
-      certificate: true,
-      description: 'Complete fashion designing course from basics to advanced techniques',
-      features: ['Live Classes', 'Lifetime Access', 'Certificate', 'Projects'],
-    },
-    {
-      id: 10,
-      title: 'Pattern Making & Draping',
-      category: 'advanced',
-      image: '📐',
-      duration: '4 Months',
-      students: 1800,
-      rating: 4.8,
-      reviews: 320,
-      price: '₹18,000',
-      originalPrice: '₹25,000',
-      level: 'Advanced',
-      lessons: 85,
-      certificate: true,
-      description: 'Master the art of pattern making and draping techniques',
-      features: ['Hands-on Practice', 'Expert Guidance', 'Certificate', 'Portfolio'],
-    },
-    {
-      id: 11,
-      title: 'Tailoring & Stitching Basics',
-      category: 'beginner',
-      image: '✂️',
-      duration: '3 Months',
-      students: 3200,
-      rating: 4.9,
-      reviews: 580,
-      price: '₹12,000',
-      originalPrice: '₹18,000',
-      level: 'Beginner',
-      lessons: 60,
-      certificate: true,
-      description: 'Learn professional tailoring and stitching from scratch',
-      features: ['Beginner Friendly', 'Practical Sessions', 'Certificate', 'Materials'],
-    }
   ];
 
-  const filteredCourses = activeCategory === 'all' 
-    ? courses 
-    : courses.filter(course => course.category === activeCategory);
+  return (
+    <section id="services" className="relative py-16 md:py-20 lg:py-24 bg-white">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Header */}
+        <div className="text-center mb-12 lg:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-serif font-bold text-black mb-4">
+            Our Fashion
+            <span className="text-[#C9A961]"> Education Services</span>
+          </h2>
+          <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto mb-6">
+            Explore our comprehensive range of fashion education services designed to help you succeed
+          </p>
+          <div className="h-0.5 w-32 bg-gradient-to-r from-transparent via-[#C9A961] to-transparent mx-auto"></div>
+        </div>
+
+        {/* Services Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service) => {
+            const Icon = service.icon;
+            return (
+              <div
+                key={service.id}
+                className="group relative bg-[#F5F1E8] border-2 border-[#C9A961] hover:border-[#C9A961] transition-all duration-300 hover:shadow-2xl overflow-hidden"
+              >
+                {/* Corner Decorations */}
+                <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#C9A961] z-10"></div>
+                <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#C9A961] z-10"></div>
+                <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#C9A961] z-10"></div>
+                <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#C9A961] z-10"></div>
+
+                {/* Badge */}
+                <div className="absolute top-4 right-4 z-10">
+                  <div className="bg-gradient-to-r from-[#C9A961] to-[#B8935A] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+                    {service.badge}
+                  </div>
+                </div>
+
+                {/* Image */}
+                <div className="relative aspect-[4/3] bg-gradient-to-br from-[#E8DCC8] to-[#F5F1E8] overflow-hidden">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                  {/* Fallback Design */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center p-6">
+                      <div className="w-20 h-20 mx-auto mb-3 rounded-full bg-gradient-to-br from-[#C9A961] to-[#B8935A] flex items-center justify-center">
+                        <Icon className="w-10 h-10 text-white" />
+                      </div>
+                      <p className="text-sm font-medium text-[#C9A961]">Service Image</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-6 bg-white">
+                  <h3 className="text-xl font-serif font-bold text-black mb-3">
+                    {service.title}
+                  </h3>
+                  <p className="text-sm text-gray-700 leading-relaxed mb-4">
+                    {service.description}
+                  </p>
+
+                  {/* Features */}
+                  <ul className="space-y-2 mb-5">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm text-gray-700">
+                        <CheckCircle className="w-4 h-4 text-[#C9A961] flex-shrink-0 mt-0.5" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Divider */}
+                  <div className="h-px bg-gradient-to-r from-transparent via-[#C9A961] to-transparent mb-4"></div>
+
+                  {/* Meta Info */}
+                  <div className="flex items-center justify-between mb-4 text-sm text-gray-600">
+                    <div className="flex items-center gap-1">
+                      <Clock className="w-4 h-4 text-[#C9A961]" />
+                      <span>{service.duration}</span>
+                    </div>
+                    <div className="text-xl font-bold text-[#C9A961]">
+                      {service.price}
+                    </div>
+                  </div>
+
+                  {/* Button */}
+                  <button className="w-full bg-gradient-to-r from-[#C9A961] to-[#B8935A] hover:from-[#B8935A] hover:to-[#C9A961] text-white font-semibold py-3 transition-all duration-300 group-hover:shadow-lg">
+                    Learn More
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom Note */}
+        <div className="mt-12 text-center">
+          <div className="inline-block bg-[#F5F1E8] border-2 border-[#C9A961] px-8 py-6 max-w-2xl">
+            <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#C9A961]"></div>
+            <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#C9A961]"></div>
+            <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#C9A961]"></div>
+            <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#C9A961]"></div>
+            
+            <p className="text-gray-700 font-medium">
+              <span className="text-[#C9A961] font-bold">Need a Custom Course?</span> We offer personalized training programs tailored to your specific needs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Component 3: Benefits & CTA Section
+export function ServicesBenefits() {
+  const benefits = [
+    {
+      icon: Video,
+      title: 'Live & Recorded Classes',
+      description: 'Attend live sessions or watch recorded lectures at your convenience. Learn at your own pace.',
+    },
+    {
+      icon: Users,
+      title: 'Expert Instructors',
+      description: 'Learn from industry professionals with years of real-world fashion experience.',
+    },
+    {
+      icon: Award,
+      title: 'Industry Certificates',
+      description: 'Receive recognized certificates upon completion to boost your career prospects.',
+    },
+    {
+      icon: CheckCircle,
+      title: 'Lifetime Access',
+      description: 'Get lifetime access to all course materials, updates, and community support.',
+    },
+    {
+      icon: BookOpen,
+      title: 'Practical Projects',
+      description: 'Work on real-world projects to build a strong portfolio that showcases your skills.',
+    },
+    {
+      icon: MessageCircle,
+      title: 'Career Support',
+      description: 'Get job placement assistance, interview prep, and career guidance from our team.',
+    },
+  ];
 
   return (
-    <section className="relative py-20 lg:py-32 overflow-hidden bg-gradient-to-br from-gray-50 via-white to-amber-50">
-      {/* Background Decorations */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-amber-300/20 to-yellow-300/20 rounded-full blur-3xl animate-pulse-slow"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-yellow-300/20 to-amber-400/20 rounded-full blur-3xl animate-pulse-slow"></div>
-      </div>
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div className={`text-center max-w-3xl mx-auto mb-12 transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-amber-100 to-yellow-100 border border-amber-200 rounded-full px-4 py-2 mb-6">
-            <BookOpen className="w-4 h-4 text-amber-600" />
-            <span className="text-sm font-semibold text-amber-700">Popular Programs</span>
+    <section className="relative py-16 md:py-20 lg:py-24 bg-gradient-to-br from-[#F5F1E8] via-white to-[#F5F1E8]">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Benefits Section */}
+        <div className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-black mb-4">
+              Why Choose Our
+              <span className="text-[#C9A961]"> Services?</span>
+            </h2>
+            <div className="h-0.5 w-32 bg-gradient-to-r from-transparent via-[#C9A961] to-transparent mx-auto"></div>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold mb-6">
-            <span className="bg-gradient-to-r from-amber-700 via-yellow-600 to-amber-700 bg-clip-text text-transparent">
-              Best Selling Courses
-            </span>
-          </h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {benefits.map((benefit, index) => {
+              const Icon = benefit.icon;
+              return (
+                <div
+                  key={index}
+                  className="group bg-white border-2 border-[#C9A961]/30 hover:border-[#C9A961] p-6 transition-all duration-300 hover:shadow-xl"
+                >
+                  {/* Corner Decorations */}
+                  <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#C9A961]"></div>
+                  <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#C9A961]"></div>
+                  <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#C9A961]"></div>
+                  <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#C9A961]"></div>
 
-          <p className="text-lg text-gray-600 leading-relaxed">
-            Choose from our most popular courses and start your fashion journey today
-          </p>
-        </div>
-
-        {/* Category Filter */}
-        <div className={`flex flex-wrap justify-center gap-3 mb-12 transition-all duration-1000 delay-200 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => setActiveCategory(category.id)}
-              className={`px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 ${
-                activeCategory === category.id
-                  ? 'bg-gradient-to-r from-amber-500 to-yellow-600 text-white shadow-lg scale-105'
-                  : 'bg-white text-gray-700 hover:bg-amber-50 hover:text-amber-700 border border-gray-200'
-              }`}
-            >
-              {category.name}
-            </button>
-          ))}
-        </div>
-
-        {/* Courses Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {filteredCourses.map((course, index) => (
-            <div
-              key={course.id}
-              className={`group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 transition-all duration-700 ${
-                mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}
-              style={{ transitionDelay: `${400 + index * 100}ms` }}
-            >
-              {/* Badge */}
-              <div className="absolute top-4 right-4 z-10 bg-gradient-to-r from-amber-500 to-yellow-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-                {course.level}
-              </div>
-
-              {/* Image Area */}
-              <div className="relative h-48 bg-gradient-to-br from-amber-100 via-yellow-50 to-amber-200 flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-yellow-500/10 group-hover:from-amber-500/20 group-hover:to-yellow-500/20 transition-all duration-500"></div>
-                <span className="text-7xl relative z-10 transform group-hover:scale-110 transition-transform duration-500">
-                  {course.image}
-                </span>
-                {/* Discount Badge */}
-                <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-                  Save {Math.round(((parseInt(course.originalPrice.replace(/[^0-9]/g, '')) - parseInt(course.price.replace(/[^0-9]/g, ''))) / parseInt(course.originalPrice.replace(/[^0-9]/g, ''))) * 100)}%
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-amber-700 transition-colors duration-300">
-                  {course.title}
-                </h3>
-
-                <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                  {course.description}
-                </p>
-
-                {/* Stats */}
-                <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-100">
-                  <div className="flex items-center space-x-1">
-                    <Star className="w-4 h-4 fill-amber-500 text-amber-500" />
-                    <span className="text-sm font-bold text-gray-900">{course.rating}</span>
-                    <span className="text-xs text-gray-500">({course.reviews})</span>
-                  </div>
-
-                  <div className="flex items-center space-x-1 text-gray-600">
-                    <Users className="w-4 h-4" />
-                    <span className="text-xs font-medium">{course.students.toLocaleString()}</span>
-                  </div>
-
-                  <div className="flex items-center space-x-1 text-gray-600">
-                    <Clock className="w-4 h-4" />
-                    <span className="text-xs font-medium">{course.duration}</span>
-                  </div>
-                </div>
-
-                {/* Features */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {course.features.slice(0, 3).map((feature, idx) => (
-                    <span
-                      key={idx}
-                      className="text-xs px-2 py-1 bg-amber-50 text-amber-700 rounded-full font-medium"
-                    >
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Info Row */}
-                <div className="flex items-center justify-between mb-4 text-sm text-gray-600">
-                  <div className="flex items-center space-x-1">
-                    <Video className="w-4 h-4" />
-                    <span>{course.lessons} Lessons</span>
-                  </div>
-                  {course.certificate && (
-                    <div className="flex items-center space-x-1">
-                      <Award className="w-4 h-4 text-amber-600" />
-                      <span className="text-amber-700 font-medium">Certificate</span>
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-[#C9A961] to-[#B8935A] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="w-6 h-6 text-white" />
                     </div>
-                  )}
-                </div>
-
-                {/* Price & CTA */}
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-2xl font-bold bg-gradient-to-r from-amber-700 to-yellow-700 bg-clip-text text-transparent">
-                        {course.price}
-                      </span>
-                      <span className="text-sm text-gray-400 line-through">
-                        {course.originalPrice}
-                      </span>
+                    <div>
+                      <h3 className="text-lg font-semibold text-black mb-2">
+                        {benefit.title}
+                      </h3>
+                      <p className="text-sm text-gray-700 leading-relaxed">
+                        {benefit.description}
+                      </p>
                     </div>
                   </div>
-
-                  <Link
-                    href={`/courses/${course.id}`}
-                    className="group/btn px-4 py-2 bg-gradient-to-r from-amber-500 to-yellow-600 text-white rounded-full font-semibold text-sm hover:shadow-lg transition-all duration-300 flex items-center space-x-1"
-                  >
-                    <span>Enroll</span>
-                    <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
-                  </Link>
                 </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* CTA Box */}
+        <div className="relative bg-gradient-to-br from-black via-gray-900 to-black p-10 md:p-12 overflow-hidden">
+          {/* Decorative Elements */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#C9A961] opacity-5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#C9A961] opacity-5 rounded-full blur-3xl"></div>
+
+          {/* Corner Decorations */}
+          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#C9A961]"></div>
+          <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#C9A961]"></div>
+          <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#C9A961]"></div>
+          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#C9A961]"></div>
+
+          <div className="relative z-10 text-center max-w-3xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-white mb-4">
+              Ready to Start Your
+              <span className="block text-[#C9A961] mt-2">Fashion Career?</span>
+            </h2>
+            <p className="text-lg text-gray-300 mb-8">
+              Join 1,53,000+ successful students and transform your passion into a thriving career today!
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              <a
+                href="/courses"
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#C9A961] to-[#B8935A] hover:from-[#B8935A] hover:to-[#C9A961] text-white font-semibold px-8 py-4 shadow-xl hover:shadow-2xl transition-all duration-300"
+              >
+                Browse All Courses
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </a>
+              <a
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-100 text-black font-semibold px-8 py-4 border-2 border-[#C9A961] shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <MessageCircle className="w-5 h-5 text-[#C9A961]" />
+                Talk to Counselor
+              </a>
+            </div>
+
+            {/* Download App */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-6 border-t border-[#C9A961]/30">
+              <Download className="w-5 h-5 text-[#C9A961]" />
+              <span className="text-gray-300 text-sm">Also available on mobile:</span>
+              <div className="flex gap-2">
+                <a href="#" className="text-xs bg-white text-black px-3 py-1.5 rounded hover:bg-gray-100 transition-colors font-medium">
+                  Google Play
+                </a>
+                <a href="#" className="text-xs bg-white text-black px-3 py-1.5 rounded hover:bg-gray-100 transition-colors font-medium">
+                  App Store
+                </a>
               </div>
             </div>
-          ))}
+          </div>
         </div>
-
-        
       </div>
-
-      <style jsx>{`
-        @keyframes pulse-slow {
-          0%, 100% { opacity: 0.3; transform: scale(1); }
-          50% { opacity: 0.5; transform: scale(1.05); }
-        }
-
-        .animate-pulse-slow {
-          animation: pulse-slow 4s ease-in-out infinite;
-        }
-
-        .line-clamp-2 {
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-      `}</style>
     </section>
   );
 }

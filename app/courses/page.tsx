@@ -1,10 +1,12 @@
-import React from 'react'
-import CoursesSection from '../components/courses/coursessection'
 
-export default function page() {
+import { ServicesHero, ServicesGrid, ServicesBenefits } from '../components/courses/coursessection';
+
+export default function ServicesPage() {
   return (
-    <div>
-      <CoursesSection/>
+    <div className="min-h-screen">
+      <ServicesHero />
+      <ServicesGrid />
+      <ServicesBenefits />
     </div>
-  )
+  );
 }
