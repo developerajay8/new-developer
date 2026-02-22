@@ -7,6 +7,8 @@ import StatsSection from "./components/statesection";
 export default function Home() {
   return (
     <div className="">
+
+      
       <HomeSection/>
       <StatsSection/>
       <Courses/>
