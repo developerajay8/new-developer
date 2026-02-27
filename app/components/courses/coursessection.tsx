@@ -1,7 +1,19 @@
 'use client';
 
-import { BookOpen, Video, Users, Award, Clock, CheckCircle, Star, Download, MessageCircle } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { BookOpen, Video, Users, Award, Clock, CheckCircle, Star, Download, MessageCircle, Loader2 } from 'lucide-react';
 import Image from 'next/image';
+
+export interface PublishedCourse {
+  id: string;
+  title: string;
+  subtitle?: string;
+  description?: string;
+  duration?: string;
+  price?: number;
+  level?: string;
+}
 
 // Component 1: Services Hero Section
 export function ServicesHero() {
@@ -85,9 +97,18 @@ export function ServicesHero() {
   );
 }
 
-// Component 2: Services Grid
+// Component 2: Services Grid (shows published courses from API, fallback to static services)
 export function ServicesGrid() {
-  const services = [
+  const [publishedCourses, setPublishedCourses] = useState<PublishedCourse[] | null>(null);
+
+  useEffect(() => {
+    fetch('/api/courses')
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data: PublishedCourse[]) => setPublishedCourses(Array.isArray(data) ? data : []))
+      .catch(() => setPublishedCourses([]));
+  }, []);
+
+  const staticServices = [
     {
       id: 1,
       title: 'Fashion Design Courses',
@@ -186,6 +207,9 @@ export function ServicesGrid() {
     },
   ];
 
+  const showPublished = Array.isArray(publishedCourses) && publishedCourses.length > 0;
+  const services = showPublished ? null : staticServices;
+
   return (
     <section id="services" className="relative py-16 md:py-20 lg:py-24 bg-white">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -202,92 +226,137 @@ export function ServicesGrid() {
           <div className="h-0.5 w-32 bg-gradient-to-r from-transparent via-[#C9A961] to-transparent mx-auto"></div>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service) => {
-            const Icon = service.icon;
-            return (
+        {/* Loading */}
+        {publishedCourses === null && (
+          <div className="flex justify-center py-12">
+            <Loader2 className="w-10 h-10 animate-spin text-[#C9A961]" />
+          </div>
+        )}
+
+        {/* Published courses from API */}
+        {showPublished && (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {publishedCourses.map((course) => (
               <div
-                key={service.id}
+                key={course.id}
                 className="group relative bg-[#F5F1E8] border-2 border-[#C9A961] hover:border-[#C9A961] transition-all duration-300 hover:shadow-2xl overflow-hidden"
               >
-                {/* Corner Decorations */}
                 <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#C9A961] z-10"></div>
                 <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#C9A961] z-10"></div>
                 <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#C9A961] z-10"></div>
                 <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#C9A961] z-10"></div>
-
-                {/* Badge */}
                 <div className="absolute top-4 right-4 z-10">
                   <div className="bg-gradient-to-r from-[#C9A961] to-[#B8935A] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
-                    {service.badge}
+                    Course
                   </div>
                 </div>
-
-                {/* Image */}
-                <div className="relative aspect-[4/3] bg-gradient-to-br from-[#E8DCC8] to-[#F5F1E8] overflow-hidden">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                    }}
-                  />
-                  {/* Fallback Design */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center p-6">
-                      <div className="w-20 h-20 mx-auto mb-3 rounded-full bg-gradient-to-br from-[#C9A961] to-[#B8935A] flex items-center justify-center">
-                        <Icon className="w-10 h-10 text-white" />
-                      </div>
-                      <p className="text-sm font-medium text-[#C9A961]">Service Image</p>
+                <div className="relative aspect-[4/3] bg-gradient-to-br from-[#E8DCC8] to-[#F5F1E8] flex items-center justify-center">
+                  <div className="text-center p-6">
+                    <div className="w-20 h-20 mx-auto mb-3 rounded-full bg-gradient-to-br from-[#C9A961] to-[#B8935A] flex items-center justify-center">
+                      <BookOpen className="w-10 h-10 text-white" />
                     </div>
+                    <p className="text-sm font-medium text-[#C9A961]">Course</p>
                   </div>
                 </div>
-
-                {/* Content */}
                 <div className="p-6 bg-white">
-                  <h3 className="text-xl font-serif font-bold text-black mb-3">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-gray-700 leading-relaxed mb-4">
-                    {service.description}
+                  <h3 className="text-xl font-serif font-bold text-black mb-3">{course.title}</h3>
+                  <p className="text-sm text-gray-700 leading-relaxed mb-4 line-clamp-3">
+                    {course.subtitle || course.description || 'Explore this course.'}
                   </p>
-
-                  {/* Features */}
-                  <ul className="space-y-2 mb-5">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-sm text-gray-700">
-                        <CheckCircle className="w-4 h-4 text-[#C9A961] flex-shrink-0 mt-0.5" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Divider */}
+                  {course.level && (
+                    <p className="text-xs text-[#C9A961] font-medium mb-2">{course.level}</p>
+                  )}
                   <div className="h-px bg-gradient-to-r from-transparent via-[#C9A961] to-transparent mb-4"></div>
-
-                  {/* Meta Info */}
                   <div className="flex items-center justify-between mb-4 text-sm text-gray-600">
                     <div className="flex items-center gap-1">
                       <Clock className="w-4 h-4 text-[#C9A961]" />
-                      <span>{service.duration}</span>
+                      <span>{course.duration || '–'}</span>
                     </div>
                     <div className="text-xl font-bold text-[#C9A961]">
-                      {service.price}
+                      {course.price != null ? `₹${course.price}` : '–'}
                     </div>
                   </div>
-
-                  {/* Button */}
-                  <button className="w-full bg-gradient-to-r from-[#C9A961] to-[#B8935A] hover:from-[#B8935A] hover:to-[#C9A961] text-white font-semibold py-3 transition-all duration-300 group-hover:shadow-lg">
+                  <Link
+                    href={`/learn/${course.id}`}
+                    className="w-full block text-center bg-gradient-to-r from-[#C9A961] to-[#B8935A] hover:from-[#B8935A] hover:to-[#C9A961] text-white font-semibold py-3 transition-all duration-300 group-hover:shadow-lg"
+                  >
                     Learn More
-                  </button>
+                  </Link>
                 </div>
               </div>
-            );
-          })}
-        </div>
+            ))}
+          </div>
+        )}
+
+        {/* Static services fallback when no published courses */}
+        {!showPublished && publishedCourses !== null && (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service) => {
+              const Icon = service.icon;
+              return (
+                <div
+                  key={service.id}
+                  className="group relative bg-[#F5F1E8] border-2 border-[#C9A961] hover:border-[#C9A961] transition-all duration-300 hover:shadow-2xl overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#C9A961] z-10"></div>
+                  <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#C9A961] z-10"></div>
+                  <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#C9A961] z-10"></div>
+                  <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#C9A961] z-10"></div>
+                  <div className="absolute top-4 right-4 z-10">
+                    <div className="bg-gradient-to-r from-[#C9A961] to-[#B8935A] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+                      {service.badge}
+                    </div>
+                  </div>
+                  <div className="relative aspect-[4/3] bg-gradient-to-br from-[#E8DCC8] to-[#F5F1E8] overflow-hidden">
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-center p-6">
+                        <div className="w-20 h-20 mx-auto mb-3 rounded-full bg-gradient-to-br from-[#C9A961] to-[#B8935A] flex items-center justify-center">
+                          <Icon className="w-10 h-10 text-white" />
+                        </div>
+                        <p className="text-sm font-medium text-[#C9A961]">Service Image</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-6 bg-white">
+                    <h3 className="text-xl font-serif font-bold text-black mb-3">{service.title}</h3>
+                    <p className="text-sm text-gray-700 leading-relaxed mb-4">{service.description}</p>
+                    <ul className="space-y-2 mb-5">
+                      {service.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-sm text-gray-700">
+                          <CheckCircle className="w-4 h-4 text-[#C9A961] flex-shrink-0 mt-0.5" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="h-px bg-gradient-to-r from-transparent via-[#C9A961] to-transparent mb-4"></div>
+                    <div className="flex items-center justify-between mb-4 text-sm text-gray-600">
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4 text-[#C9A961]" />
+                        <span>{service.duration}</span>
+                      </div>
+                      <div className="text-xl font-bold text-[#C9A961]">{service.price}</div>
+                    </div>
+                    <Link
+                      href={`/learn/${service.id}`}
+                      className="w-full block text-center bg-gradient-to-r from-[#C9A961] to-[#B8935A] hover:from-[#B8935A] hover:to-[#C9A961] text-white font-semibold py-3 transition-all duration-300 group-hover:shadow-lg"
+                    >
+                      Learn More
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
 
         {/* Bottom Note */}
         <div className="mt-12 text-center">

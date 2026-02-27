@@ -1,0 +1,65 @@
+mutation CreateDemoData @transaction @auth(level: PUBLIC, insecureReason: "This is seed data intended to be publicly available, and can be used to initialize the database.") {
+  user_insertMany(data: [
+    {
+      id: "b45a7536-a83d-4c3e-b2d2-28c0b2d6a7e0",
+      displayName: "Alice Instructor",
+      email: "alice@example.com",
+      createdAt: "2023-01-15T10:00:00Z",
+      userType: "Instructor",
+      bio: "Experienced instructor in web development."
+    },
+    {
+      id: "a2b3c4d5-e6f7-8a9b-c0d1-e2f3a4b5c6d7",
+      displayName: "Bob Student",
+      email: "bob@example.com",
+      createdAt: "2023-01-20T11:30:00Z",
+      userType: "Student"
+    }
+  ])
+  course_insertMany(data: [
+    {
+      id: "c7f9e8d1-c3b5-4a7f-9b2e-1d3a5c7f9e8d",
+      title: "Introduction to Web Development",
+      description: "A beginner-friendly course covering HTML, CSS, and JavaScript.",
+      price: 29.99,
+      createdAt: "2023-02-01T09:00:00Z",
+      updatedAt: "2023-02-01T09:00:00Z",
+      imageUrl: "https://example.com/webdev.jpg",
+      level: "Beginner",
+      category: "Programming",
+      instructor: { id: "b45a7536-a83d-4c3e-b2d2-28c0b2d6a7e0" }
+    }
+  ])
+  module_insertMany(data: [
+    {
+      id: "m1a2b3c4-d5e6-7f8a-9b0c-1d2e3f4a5b6c",
+      title: "Module 1: HTML Basics",
+      position: 1,
+      createdAt: "2023-02-02T10:00:00Z",
+      description: "Learn the fundamental concepts of HTML.",
+      course: { id: "c7f9e8d1-c3b5-4a7f-9b2e-1d3a5c7f9e8d" }
+    }
+  ])
+  lesson_insertMany(data: [
+    {
+      id: "l1a2b3c4-d5e6-7f8a-9b0c-1d2e3f4a5b6d",
+      title: "Lesson 1.1: HTML Structure",
+      contentType: "video",
+      contentUrl: "https://example.com/html-structure.mp4",
+      position: 1,
+      createdAt: "2023-02-03T11:00:00Z",
+      duration: 15,
+      module: { id: "m1a2b3c4-d5e6-7f8a-9b0c-1d2e3f4a5b6c" }
+    }
+  ])
+  enrollment_insertMany(data: [
+    {
+      id: "e1f2g3h4-i5j6-k7l8-m9n0-o1p2q3r4s5t6",
+      enrollmentDate: "2023-02-05",
+      status: "Active",
+      createdAt: "2023-02-05T08:00:00Z",
+      student: { id: "a2b3c4d5-e6f7-8a9b-c0d1-e2f3a4b5c6d7" },
+      course: { id: "c7f9e8d1-c3b5-4a7f-9b2e-1d3a5c7f9e8d" }
+    }
+  ])
+}

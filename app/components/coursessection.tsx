@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { Clock, Users, Star, Award, BookOpen, Video } from 'lucide-react';
 import Image from 'next/image';
 
@@ -220,8 +221,14 @@ export default function FeaturedCourses() {
                       </span>
                     </div>
 
-                    {/* Add to Cart Button */}
-                    <button className="w-full bg-black hover:bg-gradient-to-r hover:from-[#C9A961] hover:to-[#B8935A] text-white font-semibold py-3 px-6 transition-all duration-300 group-hover:shadow-lg">
+                    {/* Learn more → video player; Enroll Now reserved for payment later */}
+                    <Link
+                      href={`/learn/${course.id}`}
+                      className="w-full block text-center bg-[#C9A961] hover:bg-[#B8935A] text-white font-semibold py-3 px-6 transition-all duration-300 group-hover:shadow-lg rounded"
+                    >
+                      Learn more
+                    </Link>
+                    <button className="w-full mt-2 bg-black hover:bg-black/90 text-white font-semibold py-2.5 px-6 transition-all duration-300 text-sm">
                       Enroll Now
                     </button>
                   </div>

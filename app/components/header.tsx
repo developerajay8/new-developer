@@ -1,15 +1,36 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, ShoppingCart, User, Search } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Menu, X, ShoppingCart, User, Search, LogOut } from 'lucide-react';
+import { useAuth } from '@/app/contexts/AuthContext';
 
 export default function Header() {
+  const router = useRouter();
+  const { user, loading: authLoading, signOut } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleUserMenu = () => setIsUserMenuOpen(!isUserMenuOpen);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setIsUserMenuOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleSignOut = async () => {
+    await signOut();
+    setIsUserMenuOpen(false);
+    router.push('/');
+  };
 
   const menuItems = [
     { name: 'Home', href: '/' },
@@ -81,36 +102,68 @@ export default function Header() {
             </button>
 
             {/* User Menu */}
-            <div className="relative">
+            <div className="relative" ref={userMenuRef}>
               <button
                 onClick={toggleUserMenu}
                 className="text-black hover:text-[#C9A961] transition-colors flex items-center space-x-1"
+                aria-expanded={isUserMenuOpen}
+                aria-haspopup="true"
               >
                 <User className="w-5 h-5" />
-                <span className="hidden md:inline text-sm">Account</span>
+                <span className="hidden md:inline text-sm">
+                  {authLoading ? '...' : user ? (user.email?.split('@')[0] || 'Account') : 'Account'}
+                </span>
               </button>
 
-              {/* User Dropdown */}
               {isUserMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border-2 border-[#C9A961] overflow-hidden z-50">
-                  <Link
-                    href="/login"
-                    className="block px-4 py-3 text-sm text-black hover:bg-[#F5F1E8] hover:text-[#C9A961] transition-colors border-b border-gray-200"
-                  >
-                    Login
-                  </Link>
-                  <Link
-                    href="/signup"
-                    className="block px-4 py-3 text-sm text-black hover:bg-[#F5F1E8] hover:text-[#C9A961] transition-colors border-b border-gray-200"
-                  >
-                    Sign Up
-                  </Link>
-                  <Link
-                    href="/dashboard"
-                    className="block px-4 py-3 text-sm text-black hover:bg-[#F5F1E8] hover:text-[#C9A961] transition-colors"
-                  >
-                    My Dashboard
-                  </Link>
+                <div className="absolute right-0 mt-2 w-52 bg-white rounded-lg shadow-xl border-2 border-[#C9A961] overflow-hidden z-50">
+                  {user ? (
+                    <>
+                      <div className="px-4 py-3 border-b border-gray-200">
+                        <p className="text-xs text-black/60 truncate">{user.email}</p>
+                        <p className="text-sm font-medium text-black mt-0.5">My account</p>
+                      </div>
+                      <Link
+                        href="/dashboard"
+                        className="block px-4 py-3 text-sm text-black hover:bg-[#F5F1E8] hover:text-[#C9A961] transition-colors border-b border-gray-200"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        My Dashboard
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={handleSignOut}
+                        className="w-full text-left px-4 py-3 text-sm text-black hover:bg-[#F5F1E8] hover:text-[#C9A961] transition-colors flex items-center gap-2"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Log out
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href="/login"
+                        className="block px-4 py-3 text-sm text-black hover:bg-[#F5F1E8] hover:text-[#C9A961] transition-colors border-b border-gray-200"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        Login
+                      </Link>
+                      <Link
+                        href="/signup"
+                        className="block px-4 py-3 text-sm text-black hover:bg-[#F5F1E8] hover:text-[#C9A961] transition-colors border-b border-gray-200"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        Sign Up
+                      </Link>
+                      <Link
+                        href="/dashboard"
+                        className="block px-4 py-3 text-sm text-black hover:bg-[#F5F1E8] hover:text-[#C9A961] transition-colors"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        My Dashboard
+                      </Link>
+                    </>
+                  )}
                 </div>
               )}
             </div>

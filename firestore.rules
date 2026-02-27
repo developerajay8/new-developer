@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users can read/write their own profile (optional, for future use)
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    // Users can read only their own enrollments (dashboard)
+    match /enrollments/{enrollmentId} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null; // API creates with server auth
+      allow update, delete: if false;
+    }
+    // Orders: only server (API) should write; users read their own
+    match /orders/{orderId} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow write: if false; // Only backend writes
+    }
+    // Courses: readable by all; only backend (Admin SDK) can write
+    match /courses/{courseId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    // Admin list: only backend can read/write (used by API to check admin)
+    match /config/admins {
+      allow read, write: if false;
+    }
+  }
+}
